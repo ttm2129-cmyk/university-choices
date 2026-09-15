@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University choices</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><a class="brand" href="uni.html">u<span>n</span>i.</a><span class="edition">YOUR NEXT CHAPTER</span></header>
+    <section class="intro">
+      <p class="eyebrow">BIG DREAMS. SMALL SHORTLIST.</p>
+      <h1>Find your kind<br>of <em>university.</em></h1>
+      <p>18 real schools. Drag or swipe left to pass, right to keep.</p>
+    </section>
+
+    <section class="picker" aria-label="University picker">
+      <div class="toolbar"><label for="filter">Explore</label><select id="filter"><option value="all">All 18 schools</option><option>Ivy League</option><option>University of California</option></select></div><div class="progress-row"><span id="progress-text"></span><button id="reset" class="text-button">Start over ↻</button></div>
+      <div class="progress-track"><div id="progress-bar"></div></div>
+      <article id="card" class="card" aria-describedby="gesture-help" aria-labelledby="university-name">
+        <div id="swipe-label" aria-hidden="true"></div><div class="campus" id="campus"><span class="sample"><span id="school-group"></span></span><div id="photo-slot"></div><p id="photo-message" role="status">Loading campus photo…</p></div>
+        <div class="photo-credit-row"><a id="photo-credit" target="_blank" rel="noopener noreferrer"></a></div><div class="card-content"><p id="location" class="eyebrow"></p><h2 id="university-name"></h2><p id="description"></p><div id="tags" class="tags"></div><a id="school-link" target="_blank" rel="noopener noreferrer">Explore official website ↗</a></div>
+      </article>
+      <section id="complete" class="complete" hidden><span>✦</span><h2>That’s your shortlist.</h2><p id="summary"></p><p>Explore your choices below, or start over for another look.</p></section>
+      <div class="actions"><button id="bad-button" class="choice bad"><span>←</span><span>Not for me<small>Add to bad list</small></span></button><button id="good-button" class="choice good"><span>Feels right<small>Add to good list</small></span><span>→</span></button></div>
+      <p class="keyboard-hint" id="gesture-help">Drag with your mouse · Swipe on your phone · Use ← / → keys</p><div class="list-tools"><button id="undo" class="text-button">↶ Undo last change</button><button id="download" class="text-button">Download my lists ↓</button></div><p id="save-status" role="status"></p>
+      <p id="announcement" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="lists" aria-label="Your university lists">
+      <div class="list-panel"><div class="list-heading"><h2><span class="dot muted"></span>Bad list</h2><span id="bad-count" class="count">0</span></div><p id="bad-empty" class="empty">The ones you’ll pass on.</p><ul id="bad-list"></ul></div>
+      <div class="list-panel"><div class="list-heading"><h2><span class="dot"></span>Good list</h2><span id="good-count" class="count">0</span></div><p id="good-empty" class="empty">Your next chapter could start here.</p><ul id="good-list"></ul></div>
+    </section>
+    <footer>A little clarity for a big decision. <span><a href="https://ivyleague.com/sports/2017/8/13/HISTORY_0813173057.aspx" target="_blank" rel="noopener noreferrer">Ivy League directory</a> · <a href="https://www.universityofcalifornia.edu/about-uc/campuses-locations" target="_blank" rel="noopener noreferrer">UC directory</a></span></footer>
+  </main>
+</body>
+</html>
+
+

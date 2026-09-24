@@ -3,39 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>University choices</title>
+  <title>University choices — Find your next chapter</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <main>
-    <header><a class="brand" href="uni.html">u<span>n</span>i.</a><span class="edition">YOUR NEXT CHAPTER</span></header>
-    <section class="intro">
-      <p class="eyebrow">BIG DREAMS. SMALL SHORTLIST.</p>
-      <h1>Find your kind<br>of <em>university.</em></h1>
-      <p>18 real schools. Drag or swipe left to pass, right to keep.</p>
-    </section>
-
+<main>
+  <header><a class="brand" href="uni.html">u<span>n</span>i.</a><span class="edition">YOUR NEXT CHAPTER</span><a href="#my-lists" class="header-link">My lists <span id="saved-count">0</span></a><div class="account-actions" id="guest-actions"><button id="open-signin" class="text-button">Sign in</button><button id="open-signup" class="account-primary">Sign up</button></div><div class="account-actions" id="demo-account" hidden><span id="demo-name"></span><button id="signout" class="text-button">Sign out</button></div></header>
+  <p id="account-status" class="account-status" role="status" aria-live="polite"></p>
+  <section class="intro">
+    <p class="eyebrow">BIG DREAMS. YOUR OWN SHORTLIST.</p>
+    <h1>A place for<br><em>your possibilities.</em></h1>
+    <p id="directory-count">Discover U.S. universities, compare your priorities, and keep your thoughts together.</p>
+  </section>
+  <section class="search-section" aria-label="University search">
+    <label class="sr-only" for="search">Search universities, cities, states, or fields</label>
+    <div class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search a university, city, state, or field…" autocomplete="off"><button id="clear-search" class="text-button">Clear search</button></div>
+    <p class="help">Search a city or state and combine it with any filters. Try “Boston, MA” for that city or “California” for the whole state. Exact city names match the reported campus city, not the surrounding metro area.</p>
+  </section>
+  <div class="workspace">
+    <aside>
+      <details class="advanced" open>
+        <summary>Advanced search <span>Refine your match</span></summary>
+        <form id="filters">
+          <label class="field-label" for="field">Field of study</label>
+          <select id="field"><option value="">Any reported field</option></select>
+          <p class="help">Broad undergraduate program areas reported to the government. Confirm specific degrees on the school’s website.</p>
+          <fieldset><legend>Campus size</legend>
+            <label class="check"><input type="checkbox" id="size-enabled"> Filter undergraduate enrollment</label>
+            <div class="range-heading"><label for="size-max">Maximum students</label><output id="size-max-value" for="size-max">Up to 10,000</output></div>
+            <input type="range" id="size-max" min="0" max="10000" value="10000" step="100" disabled>
+            <p class="help">0–10,000 undergraduates. Turn on to apply this maximum; off includes every campus size.</p>
+          </fieldset>
+          <label class="field-label" for="citations">Scientific citations · minimum</label>
+          <select id="citations"><option value="">Any citation count</option><option value="10000">10,000+</option><option value="100000">100,000+</option><option value="1000000">1 million+</option><option value="10000000">10 million+</option></select>
+          <p class="help">OpenAlex total citations to affiliated research. Not normalized for university size or field.</p>
+          <label class="field-label" for="employment">Employment rate · minimum</label>
+          <select id="employment"><option value="">Any reported rate</option><option value="50">50%+</option><option value="70">70%+</option><option value="80">80%+</option><option value="90">90%+</option><option value="95">95%+</option></select>
+          <label class="field-label" for="average-salary">Average annual earnings · minimum</label>
+          <input id="average-salary" type="number" min="0" step="1000" placeholder="No minimum · USD">
+          <p class="help">Both measures are 10 years after entry for tracked federally aided students, not all graduates. Employment excludes people still enrolled. Mean earnings are historical (2014–2015, in 2017 dollars), not current starting salaries. <a href="#outcome-details">Definitions ↓</a></p>
+          <label class="field-label" for="tuition-basis">Tuition basis</label>
+          <select id="tuition-basis"><option value="tuitionOut">Out-of-state</option><option value="tuitionIn">In-state</option></select>
+          <fieldset><legend>Annual tuition + fees</legend>
+            <label class="check"><input id="tuition-enabled" type="checkbox"> Apply tuition budget</label>
+            <div class="range-heading"><label for="tuition">Maximum / year</label><output id="tuition-value" for="tuition">Up to $10,000</output></div>
+            <input id="tuition" type="range" min="0" max="10000" step="100" value="10000" disabled>
+          </fieldset>
+          <fieldset><legend>Annual living expenses</legend>
+            <label class="check"><input id="living-enabled" type="checkbox"> Apply living budget</label>
+            <div class="range-heading"><label for="living">Maximum / year</label><output id="living-value" for="living">Up to $10,000</output></div>
+            <input id="living" type="range" min="0" max="10000" step="100" value="10000" disabled>
+          </fieldset>
+          <p class="help">Each budget slider runs from $0 to $10,000. Leave it off to include higher-cost schools.</p>
+          <p class="help">Reported room, board, and other expenses: on-campus when available, otherwise off-campus. Books excluded. Costs are before aid; international charges may differ.</p>
+          <label class="field-label" for="international">International undergraduate share · minimum</label>
+          <select id="international"><option value="">Any community size</option><option value="1">1%+</option><option value="5">5%+</option><option value="10">10%+</option><option value="20">20%+</option><option value="30">30%+</option></select>
+          <p class="help">Reported nonresident share of undergraduates; this does not measure campus support or community quality.</p>
+          <label class="check missing-check"><input id="include-unknown" type="checkbox"> Also include schools missing a selected numeric measure</label>
+          <button type="reset" class="secondary full">Reset filters</button>
+        </form>
+      </details>
+      <p class="source-note">College Scorecard · June 2026 release<br>Reporting years vary by measure.<br><a href="#data-details">About the data ↓</a></p>
+    </aside>
     <section class="picker" aria-label="University picker">
-      <div class="toolbar"><label for="filter">Explore</label><select id="filter"><option value="all">All 18 schools</option><option>Ivy League</option><option>University of California</option></select></div><div class="progress-row"><span id="progress-text"></span><button id="reset" class="text-button">Start over ↻</button></div>
+      <div class="progress-row"><p id="progress-text" role="status"></p><button id="reset" class="text-button">Clear both lists ↻</button></div>
       <div class="progress-track"><div id="progress-bar"></div></div>
       <article id="card" class="card" aria-describedby="gesture-help" aria-labelledby="university-name">
-        <div id="swipe-label" aria-hidden="true"></div><div class="campus" id="campus"><span class="sample"><span id="school-group"></span></span><div id="photo-slot"></div><p id="photo-message" role="status">Loading campus photo…</p></div>
-        <div class="photo-credit-row"><a id="photo-credit" target="_blank" rel="noopener noreferrer"></a></div><div class="card-content"><p id="location" class="eyebrow"></p><h2 id="university-name"></h2><p id="description"></p><div id="tags" class="tags"></div><a id="school-link" target="_blank" rel="noopener noreferrer">Explore official website ↗</a></div>
+        <div id="swipe-label" aria-hidden="true"></div>
+        <div class="campus" id="campus"><span class="sample" id="school-group"></span><div id="photo-slot"></div><span id="photo-type" hidden>University emblem · campus photo unavailable</span><p id="photo-message" role="status">Loading campus photo…</p><button id="retry-photo" class="secondary" hidden>Retry photo</button></div>
+        <div class="photo-credit-row"><span id="photo-attribution"></span><a id="photo-credit" target="_blank" rel="noopener noreferrer"></a></div>
+        <div class="card-content">
+          <p id="location" class="eyebrow"></p><h2 id="university-name"></h2><p id="description"></p>
+          <h3>Academic highlights</h3><p class="help">Largest reported undergraduate program areas by share of awards—not a reputation ranking.</p><div id="tags" class="tags"></div>
+          <dl id="school-facts" class="facts"></dl><p class="help">Employment is a tracked-cohort share 10 years after entry, not a graduate placement rate. Average earnings are historical (2014–2015, adjusted to 2017 dollars), not current salaries. <a href="#outcome-details">See definitions</a>.</p>
+          <p id="missing-data" class="help"></p>
+          <div class="school-links"><a id="school-link" target="_blank" rel="noopener noreferrer">Official website ↗</a><a id="data-link" target="_blank" rel="noopener noreferrer">Government data ↗</a><a id="research-link" target="_blank" rel="noopener noreferrer" hidden>Research source ↗</a></div>
+        </div>
       </article>
-      <section id="complete" class="complete" hidden><span>✦</span><h2>That’s your shortlist.</h2><p id="summary"></p><p>Explore your choices below, or start over for another look.</p></section>
+      <section id="complete" class="complete" hidden><span aria-hidden="true">✦</span><h2 id="complete-title">No schools to show</h2><p id="summary"></p><button id="reset-empty" class="secondary">Clear search and filters</button></section>
       <div class="actions"><button id="bad-button" class="choice bad"><span>←</span><span>Not for me<small>Add to bad list</small></span></button><button id="good-button" class="choice good"><span>Feels right<small>Add to good list</small></span><span>→</span></button></div>
-      <p class="keyboard-hint" id="gesture-help">Drag with your mouse · Swipe on your phone · Use ← / → keys</p><div class="list-tools"><button id="undo" class="text-button">↶ Undo last change</button><button id="download" class="text-button">Download my lists ↓</button></div><p id="save-status" role="status"></p>
-      <p id="announcement" role="status" aria-live="polite"></p>
+      <p class="keyboard-hint" id="gesture-help">Drag the photo or card · Swipe on your phone · Use ← / →</p>
+      <section id="card-notes" class="notes-editor"><label for="note">My notes <span>Only saved in this browser</span></label><textarea id="note" rows="3" maxlength="10000" placeholder="Programs I like, questions to ask, application deadlines…"></textarea><p id="note-status" role="status"></p></section>
+      <div class="list-tools"><button id="undo" class="text-button">↶ Undo last choice</button><button id="download" class="text-button">Download lists + notes ↓</button></div><p id="save-status" role="status"></p><p id="announcement" role="status" aria-live="polite"></p>
     </section>
-
-    <section class="lists" aria-label="Your university lists">
-      <div class="list-panel"><div class="list-heading"><h2><span class="dot muted"></span>Bad list</h2><span id="bad-count" class="count">0</span></div><p id="bad-empty" class="empty">The ones you’ll pass on.</p><ul id="bad-list"></ul></div>
-      <div class="list-panel"><div class="list-heading"><h2><span class="dot"></span>Good list</h2><span id="good-count" class="count">0</span></div><p id="good-empty" class="empty">Your next chapter could start here.</p><ul id="good-list"></ul></div>
-    </section>
-    <footer>A little clarity for a big decision. <span><a href="https://ivyleague.com/sports/2017/8/13/HISTORY_0813173057.aspx" target="_blank" rel="noopener noreferrer">Ivy League directory</a> · <a href="https://www.universityofcalifornia.edu/about-uc/campuses-locations" target="_blank" rel="noopener noreferrer">UC directory</a></span></footer>
-  </main>
+  </div>
+  <section class="lists" id="my-lists" aria-label="Your university lists">
+    <div class="list-panel"><div class="list-heading"><h2><span class="dot muted"></span>Bad list</h2><div class="list-heading-actions"><span id="bad-count" class="count">0</span><button id="clear-bad" class="text-button" type="button">Clear bad list</button></div></div><p id="bad-empty" class="empty">The ones you’ll pass on.</p><ul id="bad-list"></ul></div>
+    <div class="list-panel"><div class="list-heading"><h2><span class="dot"></span>Good list</h2><div class="list-heading-actions"><span id="good-count" class="count">0</span><button id="clear-good" class="text-button" type="button">Clear good list</button></div></div><p id="good-empty" class="empty">Your next chapter could start here.</p><ul id="good-list"></ul></div>
+  </section>
+  <details class="notebook"><summary>My university notebook <span id="notes-count">0 schools</span></summary><p class="help">Notes stay here even when you change filters, remove a school, or clear your lists.</p><button id="clear-notes" class="text-button" type="button">Clear all notes</button><ul id="notebook-list"></ul><p id="notes-empty" class="empty">Write a note on any university card to start your notebook.</p></details>
+  <details id="data-details" class="data-details"><summary>About the directory and data</summary>
+    <p id="coverage"></p>
+    <p>Academic highlights are the largest reported undergraduate program areas by award share (PCIP), not a measure of fame or teaching quality. The field filter uses reported bachelor’s programs and award areas. Graduate-only schools may not have comparable data.</p>
+    <p>Size means undergraduate degree/certificate-seeking enrollment. Tuition includes annual tuition and required fees before financial aid. Living expenses combine reported room/board and other expenses, preferring on-campus figures; they exclude books and are not a personal budget estimate. Out-of-state tuition is not a guaranteed international student price.</p>
+    <p>International community means the reported nonresident undergraduate percentage. Citation counts are OpenAlex totals matched by institution name or unique website and location; coverage is partial and counts favor larger research institutions. Employment and average earnings describe limited, historical federally aided cohorts, not all alumni.</p>
+    <p id="outcome-details">Employment rate is calculated as working-and-not-enrolled ÷ (working-and-not-enrolled + not-working-and-not-enrolled), 10 years after entry. It includes non-completers and excludes people still enrolled; it is not a job-placement rate or an unemployment statistic. The published cohort map dates these counts to 2020–2021. Average annual earnings use the discontinued mean earnings measure for working, non-enrolled federally aided former students 10 years after entry: measured in 2014–2015, adjusted to 2017 dollars. Earnings include wages and positive self-employment income. Reporting periods differ; do not treat these as current outcomes. Missing or suppressed data remains “Not reported.”</p>
+    <p>Missing values are shown as “Not reported.” With an active numeric filter they are excluded unless you choose to include them. Images are from university websites or Wikimedia. Campus images are preferred; a university logo or seal is clearly labeled when used instead. Missing images are labeled, and source/license credits are linked.</p>
+    <p>Sources: <a href="https://collegescorecard.ed.gov/data/" target="_blank" rel="noopener noreferrer">College Scorecard</a> · <a href="https://collegescorecard.ed.gov/assets/InstitutionDataDocumentation.pdf" target="_blank" rel="noopener noreferrer">Metric definitions</a> · <a href="https://openalex.org/" target="_blank" rel="noopener noreferrer">OpenAlex</a>. School data is bundled for offline searching; images and source links need internet access.</p>
+  </details>
+  <footer>A little clarity for a big decision. <span>Your choices, at your pace.</span></footer>
+</main>
+<dialog id="auth-dialog" aria-labelledby="auth-title" aria-describedby="auth-disclaimer">
+  <div class="auth-shell">
+    <button id="close-auth" class="close-auth" type="button" aria-label="Close account dialog">×</button>
+    <p class="eyebrow">YOUR NEXT CHAPTER</p>
+    <h2 id="auth-title">Welcome back.</h2>
+    <p class="auth-subtitle" id="auth-subtitle">Try the sign-in experience.</p>
+    <p id="auth-disclaimer" class="demo-notice"><strong>Demo only.</strong> Use made-up details. No real account is created, credentials are not verified, and passwords are never stored or sent. Lists and notes remain in this browser; demo sign-in does not sync or protect them.</p>
+    <div class="auth-modes" aria-label="Choose account screen"><button id="signin-mode" type="button" aria-pressed="true">Sign in</button><button id="signup-mode" type="button" aria-pressed="false">Sign up</button></div>
+    <form id="auth-form">
+      <div id="name-group" hidden><label for="auth-name">Display name</label><input id="auth-name" name="demo-name" maxlength="60" autocomplete="off" placeholder="Demo student"></div>
+      <label for="auth-email">Demo email</label><input id="auth-email" name="demo-email" type="email" required maxlength="254" autocomplete="off" placeholder="student@example.com">
+      <label for="auth-password">Demo password</label><div class="password-field"><input id="auth-password" name="demo-password" type="password" required minlength="8" maxlength="128" autocomplete="off" placeholder="Use a made-up password"><button id="toggle-password" type="button" aria-label="Show demo passwords" aria-pressed="false">Show</button></div>
+      <p class="help">At least 8 characters. Please don’t use a real password.</p>
+      <div id="confirm-group" hidden><label for="auth-confirm">Confirm demo password</label><input id="auth-confirm" name="demo-confirm" type="password" minlength="8" maxlength="128" autocomplete="off" placeholder="Repeat your demo password"></div>
+      <p id="auth-error" role="alert"></p>
+      <button id="auth-submit" class="account-primary auth-submit" type="submit">Try demo sign-in</button>
+      <button id="continue-guest" class="text-button guest-button" type="button">Continue as a guest</button>
+    </form>
+  </div>
+</dialog>
 </body>
 </html>
-
-

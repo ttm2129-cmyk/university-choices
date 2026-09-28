@@ -47,15 +47,15 @@
           <select id="tuition-basis"><option value="tuitionOut">Out-of-state</option><option value="tuitionIn">In-state</option></select>
           <fieldset><legend>Annual tuition + fees</legend>
             <label class="check"><input id="tuition-enabled" type="checkbox"> Apply tuition budget</label>
-            <div class="range-heading"><label for="tuition">Maximum / year</label><output id="tuition-value" for="tuition">Up to $10,000</output></div>
-            <input id="tuition" type="range" min="0" max="10000" step="100" value="10000" disabled>
+            <div class="range-heading"><label for="tuition">Maximum / year</label><output id="tuition-value" for="tuition">Up to $72,100</output></div>
+            <input id="tuition" type="range" min="0" max="72100" step="100" value="72100" disabled>
           </fieldset>
           <fieldset><legend>Annual living expenses</legend>
             <label class="check"><input id="living-enabled" type="checkbox"> Apply living budget</label>
-            <div class="range-heading"><label for="living">Maximum / year</label><output id="living-value" for="living">Up to $10,000</output></div>
-            <input id="living" type="range" min="0" max="10000" step="100" value="10000" disabled>
+            <div class="range-heading"><label for="living">Maximum / year</label><output id="living-value" for="living">Up to $87,100</output></div>
+            <input id="living" type="range" min="0" max="87100" step="100" value="87100" disabled>
           </fieldset>
-          <p class="help">Each budget slider runs from $0 to $10,000. Leave it off to include higher-cost schools.</p>
+          <p class="help" id="budget-range-help">Budget ranges cover reported costs in the bundled dataset. Turn a budget off for no limit.</p>
           <p class="help">Reported room, board, and other expenses: on-campus when available, otherwise off-campus. Books excluded. Costs are before aid; international charges may differ.</p>
           <label class="field-label" for="international">International undergraduate share · minimum</label>
           <select id="international"><option value="">Any community size</option><option value="1">1%+</option><option value="5">5%+</option><option value="10">10%+</option><option value="20">20%+</option><option value="30">30%+</option></select>

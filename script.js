@@ -2846,7 +2846,7 @@ document.querySelector('.notebook').addEventListener('toggle',event=>{
 function resetFilters(){
  get('search').value='';get('field').value='';get('size-enabled').checked=false;get('size-max').value='10000';get('tuition-basis').value='tuitionOut';get('include-unknown').checked=false;
  for(const id of ['citations','employment','average-salary','international'])get(id).value='';
- for(const id of ['tuition','living']){get(id).value='10000';get(`${id}-enabled`).checked=false;}
+ for(const id of ['tuition','living']){get(id).value=get(id).max;get(`${id}-enabled`).checked=false;}
  updateFilters();
 }
 function updateFilters(changed){
@@ -2871,6 +2871,18 @@ document.addEventListener('keydown',event=>{
 for(const [code,label] of Object.entries(fieldNames).sort((a,b)=>a[1].localeCompare(b[1]))){const option=document.createElement('option');option.value=code;option.textContent=label;get('field').append(option);}
 get('directory-count').textContent=`${number(universities.length)} U.S. institutions. Find your fit, save your choices, and keep your notes.`;
 get('coverage').textContent=`${number(universities.length)} institutions. ${dataInfo.scope} Research counts available for ${number(dataInfo.citationCoverage)} schools; images for ${number(dataInfo.photoCoverage)} (${number(dataInfo.campusPhotoCoverage)} campus images and ${number(dataInfo.logoCoverage)} labeled emblems). School data retrieved ${dataInfo.retrieved}; images updated ${dataInfo.photosUpdated}.`;
+// Cover every reported cost; round upward so the maximum is reachable in $100 steps.
+function initializeBudgetRanges(){
+ const ranges={tuition:['tuitionIn','tuitionOut'],living:['living']};
+ for(const [id,fields] of Object.entries(ranges)){
+  const maximum=universities.reduce((highest,u)=>Math.max(highest,...fields.map(key=>Number.isFinite(u[key])?u[key]:0)),0);
+  const ceiling=Math.max(100,Math.ceil(maximum/100)*100);
+  get(id).max=String(ceiling);get(id).defaultValue=String(ceiling);get(id).value=String(ceiling);
+  get(`${id}-value`).value=`Up to ${money(ceiling)}`;
+ }
+ get('budget-range-help').textContent=`Tuition slider: $0–${money(Number(get('tuition').max))}; living slider: $0–${money(Number(get('living').max))}, in $100 steps. Limits cover the bundled dataset, rounded up—not current nationwide maximum prices. Turn a budget off for no limit.`;
+}
+initializeBudgetRanges();
 if(matchMedia('(max-width: 800px)').matches)document.querySelector('.advanced').open=false;
 render();
 

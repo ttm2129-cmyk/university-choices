@@ -58,3 +58,12 @@ External images retain their owners' rights. New Commons images show author/lice
 ## Updating
 
 The compact dataset is embedded at the beginning of `script.js` (`dataInfo`, `fieldNames`, and `universities`) so opening `uni.html` directly remains supported. Refresh from the sources above, preserve legacy IDs, retain explicit nulls, and update the release date and coverage counts. Do not silently fill gaps with generated or guessed values.
+
+## Budget range audit — September 27, 2026
+
+The earlier $10,000 budget-slider ceilings were interface limits, not maximum costs in the data. Both budget sliders now compute their ceilings from all bundled records, rounded upward to the next $100. Tuition considers both in-state and out-of-state values. Reset restores those ceilings and disables the budget filters. Enrollment retains its separate 0–10,000 range.
+
+- **Highest bundled annual tuition + required fees: $72,097**, University of Southern California (UNITID 123961), for both tuition bases. Verified against `TUITIONFEE_IN` and `TUITIONFEE_OUT` in the original downloaded Scorecard CSV. Slider ceiling: **$72,100**.
+- **Highest bundled living estimate: $87,060**, United International College (UNITID 486354), calculated from `ROOMBOARD_OFF` ($46,920) + `OTHEREXPENSE_OFF` ($40,140); on-campus components are missing. Both components were verified against the original CSV. Slider ceiling: **$87,100**. This is an unusual reported outlier, not a typical student budget. The school's [current tuition/fee page](https://www.uinternational.edu/admissions/fees-tuition/) did not independently substantiate that living estimate. It is retained as a source-reported value, not presented as a confirmed current charge.
+
+These are maxima within the app's 2,593-record snapshot, not verified current national maxima. For comparison, [USC's official cost page](https://financialaid.usc.edu/undergraduate-financial-aid/cost-of-attendance/) lists 2026–2027 tuition of $75,384 plus fees of $1,952, totaling $77,336 before its separate new-student fee. This newer figure is not substituted into the historical dataset in isolation. Users should verify current costs with each institution. Living expenses include room/board and other expenses, not tuition or books.

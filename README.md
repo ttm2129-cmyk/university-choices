@@ -99,11 +99,33 @@ I tested the interface throughout development and revised my requests when its b
 
 | What I tested | What I expected | What I observed |
 | --- | --- | --- |
-| Search and combined filters | Adding constraints should narrow the matching set or leave it unchanged when a constraint adds no restriction. | Using Boston as the destination and adding limits such as a maximum enrollment of 7,000, at least 10,000 citations, and at least 5% international undergraduates substantially narrowed the results. |
+| Search and combined filters | Adding constraints should narrow the matching set or leave it unchanged when a constraint adds no restriction. | In the detailed test below, successive criteria reduced the displayed count from 2,593 schools to 5. |
 | Independent Clear controls | Each control should reset its intended part of the research. | I tried all three controls and found that they behaved as intended. |
 | Clear all notes after creating notes and saving schools in both lists | Notes should disappear while both lists remain. | The notes disappeared, and the good and bad lists remained. |
 
-The reduced result count was evidence that the filters affected the search, but it did not by itself prove that every returned school met every criterion. A stronger follow-up would be to check individual returned records against each active limit and record exact counts. I have not conducted a formal usability study with other students.
+### Detailed manual filter test
+
+I applied the following criteria in sequence, keeping the earlier criteria active. These are the counts I observed in the application:
+
+| Step | Action added to the previous settings | Schools remaining |
+| --- | --- | ---: |
+| 1 | Start with the full directory | 2,593 |
+| 2 | Search for “New York” | 228 |
+| 3 | Select Education as the field of study | 78 |
+| 4 | Enable the undergraduate-enrollment filter | 66 |
+| 5 | Set maximum undergraduate enrollment to 5,900 | 57 |
+| 6 | Set minimum scientific citations to 100,000 | 17 |
+| 7 | Enable the tuition budget and set its maximum to $29,300 per year | 5 |
+
+The progressive reduction matched my intention: students should be able to combine preferences to narrow the directory. In this application, “New York” matches the state, rather than only New York City.
+
+These observations show that the controls affected the results; they do not alone establish that every returned school's data satisfies every criterion. My notes did not record the tuition basis, the initial enrollment limit at step 4, the missing-data setting, or the browser and test date. A more reproducible follow-up would record those settings and inspect the five returned schools individually. I have not conducted a formal usability study with other students.
+
+### Final revision: budget-slider limits
+
+During my final review, I noticed that the tuition and living-expense sliders stopped at $10,000, preventing students from selecting higher budgets represented in the dataset. I asked Codex to verify the largest reported values and revise the controls. The slider ceilings now derive from the bundled school records and round upward to the next $100: currently $72,100 for tuition and fees and $87,100 for living expenses.
+
+The original government CSV confirmed the dataset maxima, but those are not current nationwide maximum prices. The unusually high living-cost record also needs caution; its source and verification limits are documented in [DATA-SOURCES.md](DATA-SOURCES.md). This revision showed me that a control can function as coded while still failing to support the intended task. My filter test above used a tuition budget of $29,300, beyond the previous interface limit.
 
 Separately, Codex reported programmatic checks of filtering, list behavior, local storage, Clear controls, demo account behavior, and photo fallbacks. Those were AI-assisted checks, not tests I personally wrote. The temporary test scripts are not included in this repository, so I do not present them as a reproducible test suite for reviewers.
 
